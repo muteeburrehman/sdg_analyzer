@@ -1,6 +1,7 @@
 import json
 import os
 from tkinter import Tk, Label, Entry, Button, Text, Scrollbar, END
+import re
 
 # Function to load and parse JSON data
 def load_json_files():
@@ -32,7 +33,8 @@ def analyze_text(user_input, sdg_data):
                 for item in field_data:
                     check_fields(item)
             elif isinstance(field_data, str):
-                if field_data.lower() in user_input.lower():
+                pattern = re.compile(rf"\b{re.escape(field_data.lower())}\b")
+                if pattern.search(user_input.lower()):
                     match_found = True
                     reason.append(field_data)
 
